@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:ffimageloadingsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             x:Class="PM02RestApi.CountriesPage">
+
+  
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <ffimageloadingsvg:SvgImageSourceConverter x:Key="SvgImageSourceConverter"></ffimageloadingsvg:SvgImageSourceConverter>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
+    <StackLayout>
+        <Label Text="Ejercicio 2.1" HorizontalOptions="CenterAndExpand" Margin="0,30,0,0" FontSize="Large"/>
+        <Label Text="Busqueda de Regiones" HorizontalOptions="CenterAndExpand" FontSize="15"/>
+
+        <Picker x:Name="PicketCountries" Margin="0,40,0,0" SelectedIndexChanged="OnPickerSelectedIndexChanged" Title="Seleccione una Región" 
+                ItemsSource="{Binding Regioneslist}" 
+                ItemDisplayBinding="{Binding value}"
+                SelectedItem="{Binding SelectedRegion}" HorizontalOptions="Center" WidthRequest="300"/>
+
+        <ListView x:Name="lstPersonas"  HasUnevenRows="True" SeparatorVisibility="None" Margin="2" ItemSelected="lstPersonas_ItemSelected" >
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell >
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <ffimageloading:CachedImage  Source="{Binding flags.png}"
+                                            LoadingPlaceholder = "Flag"
+                                            ErrorPlaceholder= "Error"
+                                            Margin="5"
+                                            CacheDuration= "30"
+                                            RetryCount= "5"
+                                            RetryDelay= "450"
+                                            DownsampleToViewSize = "true"
+                                                             Grid.Column="0"
+                                                             Grid.Row="0"/>
+
+                            <Label x:Name="lblnombre" Text="{Binding name.common}" HeightRequest="50" FontSize="17" HorizontalOptions="Start" VerticalOptions="Center" Grid.Column="1" Grid.Row="0"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </StackLayout>
+</ContentPage>
